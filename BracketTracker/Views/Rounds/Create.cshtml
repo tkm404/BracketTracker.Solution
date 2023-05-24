@@ -1,0 +1,22 @@
+@{
+  Layout = "_Layout";
+}
+
+@model BracketTracker.Models.Round
+
+<h2>DO SOMETHING</h2>
+
+<h4>Add Teams to this Round: </h4>
+
+@using (Html.BeginForm())
+{
+    <label>Team One: </label>
+    @Html.DropDownList("TeamId")
+    @Html.RadioButtonFor(model => model.Result, "Team1Win")
+    <br>
+    <br>
+    <label>Team Two: </label>
+    @Html.DropDownList("TeamId")
+    @Html.RadioButtonFor(model => model.Result, "Team2Win")
+    <input type="submit" value="Add Round Result">
+}

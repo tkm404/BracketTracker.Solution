@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+<h2>SHOW ME SOME ROUNDS, BOY</h2>
+
+@using BracketTracker.Models
+
+@if (Model.Count == 0)
+{
+  <p>No rounds yet</p>
+}
+
+<ul>
+@foreach (Round round in Model)
+{
+  <li>@round.Name</li>
+}
+</ul>

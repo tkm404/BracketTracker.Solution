@@ -1,15 +1,35 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using BracketTracker.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BracketTracker.Controllers
 {
     public class TeamsController : Controller
 {
-
-    [HttpGet("/")]
-    public ActionResult Index()
+    private readonly BracketTrackerContext _db;
+    public TeamsController(BracketTrackerContext db)
     {
-        return View();
+      _db = db;
     }
 
-}
+    public ActionResult Index()
+    {
+        return View(_db.Teams.ToList());
+    }
+
+    public ActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+		public ActionResult Create(Team team)
+    {
+      _db.Teams.Add(team);
+      _db.SaveChanges();
+			return RedirectToAction("Index");
+    }
+  }
 }

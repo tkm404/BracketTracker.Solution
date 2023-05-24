@@ -6,6 +6,6 @@ namespace BracketTracker.Models
     {
         public int RoundId { get; set; }
         public bool Result { get; set; }
-        List<TeamRound> JoinEntities { get; set; }
+        public List<TeamRound> JoinEntities { get; set; }
     }
 }

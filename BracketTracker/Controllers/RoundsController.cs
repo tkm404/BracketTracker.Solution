@@ -17,8 +17,9 @@ namespace BracketTracker.Controllers
 				
 				public ActionResult Index()
 				{
-
-					return View(_db.Rounds.ToList());
+					List<Round> rounds = _db.Rounds.Include(round => round.JoinEntities)
+																				.ThenInclude(join => join.Team).ToList();
+					return View(rounds);
 				}
         public ActionResult Create()
         {
@@ -27,9 +28,12 @@ namespace BracketTracker.Controllers
         }
 
 				[HttpPost]
-				public ActionResult Create(Round round)
+				public ActionResult Create(Round round, int[] TeamId)
 				{
 					_db.Rounds.Add(round);
+					_db.SaveChanges();
+					_db.TeamRounds.Add(new TeamRound() { RoundId = round.RoundId, TeamId = TeamId[0]});
+					_db.TeamRounds.Add(new TeamRound() { RoundId = round.RoundId, TeamId = TeamId[1]});
 					_db.SaveChanges();
 					return RedirectToAction("Index");
 				}

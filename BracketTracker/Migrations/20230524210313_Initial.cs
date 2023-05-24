@@ -27,21 +27,6 @@ namespace BracketTracker.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "TeamRounds",
-                columns: table => new
-                {
-                    TeamRoundId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TeamId = table.Column<int>(type: "int", nullable: false),
-                    RoundId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TeamRounds", x => x.TeamRoundId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Teams",
                 columns: table => new
                 {
@@ -57,15 +42,52 @@ namespace BracketTracker.Migrations
                     table.PrimaryKey("PK_Teams", x => x.TeamId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "TeamRounds",
+                columns: table => new
+                {
+                    TeamRoundId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    RoundId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeamRounds", x => x.TeamRoundId);
+                    table.ForeignKey(
+                        name: "FK_TeamRounds_Rounds_RoundId",
+                        column: x => x.RoundId,
+                        principalTable: "Rounds",
+                        principalColumn: "RoundId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TeamRounds_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "TeamId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamRounds_RoundId",
+                table: "TeamRounds",
+                column: "RoundId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamRounds_TeamId",
+                table: "TeamRounds",
+                column: "TeamId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Rounds");
+                name: "TeamRounds");
 
             migrationBuilder.DropTable(
-                name: "TeamRounds");
+                name: "Rounds");
 
             migrationBuilder.DropTable(
                 name: "Teams");

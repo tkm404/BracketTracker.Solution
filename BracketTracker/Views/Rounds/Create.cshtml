@@ -12,11 +12,11 @@
 {
     <label>Team One: </label>
     @Html.DropDownList("TeamId")
-    @Html.RadioButtonFor(model => model.Result, "Team1Win")
+    @Html.RadioButtonFor(model => model.Result, "true")
     <br>
     <br>
     <label>Team Two: </label>
     @Html.DropDownList("TeamId")
-    @Html.RadioButtonFor(model => model.Result, "Team2Win")
+    @Html.RadioButtonFor(model => model.Result, "false")
     <input type="submit" value="Add Round Result">
 }

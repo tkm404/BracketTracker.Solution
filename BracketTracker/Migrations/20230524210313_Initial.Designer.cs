@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BracketTracker.Migrations
 {
     [DbContext(typeof(BracketTrackerContext))]
-    [Migration("20230524175336_Initial")]
+    [Migration("20230524210313_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,7 +68,40 @@ namespace BracketTracker.Migrations
 
                     b.HasKey("TeamRoundId");
 
+                    b.HasIndex("RoundId");
+
+                    b.HasIndex("TeamId");
+
                     b.ToTable("TeamRounds");
+                });
+
+            modelBuilder.Entity("BracketTracker.Models.TeamRound", b =>
+                {
+                    b.HasOne("BracketTracker.Models.Round", "Round")
+                        .WithMany("JoinEntities")
+                        .HasForeignKey("RoundId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BracketTracker.Models.Team", "Team")
+                        .WithMany("JoinEntities")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Round");
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("BracketTracker.Models.Round", b =>
+                {
+                    b.Navigation("JoinEntities");
+                });
+
+            modelBuilder.Entity("BracketTracker.Models.Team", b =>
+                {
+                    b.Navigation("JoinEntities");
                 });
 #pragma warning restore 612, 618
         }

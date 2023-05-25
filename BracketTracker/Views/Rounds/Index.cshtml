@@ -1,6 +1,8 @@
 @{
   Layout = "_Layout";
   List<TeamRound> teamRounds = ViewBag.allTeamRounds;
+  List<Winner> WinnerBracket = ViewBag.winnerBracket;
+  List<Loser> LoserBracket = ViewBag.loserBracket;
 }
 
 <h2>SHOW ME SOME ROUNDS, BOY</h2>
@@ -13,7 +15,6 @@
 {
   <p>No rounds yet</p>
 }
-
 <ol>
   @foreach (Round round in Model)
   {
@@ -38,6 +39,34 @@
       </li>
   }
 </ol>
+</div>
+<div class="columns winners">
+  <h1>Winners Bracket</h1>
+  @if (WinnerBracket.Count == 0)
+  {
+    <p>No one has played yet.</p>
+  }
+  else
+  {
+    @foreach (Winner winner in WinnerBracket)
+    {
+      <p>@winner.Team.Name</p>
+    }
+  }
+</div>
+<div class="columns losers">
+  <h1>Losers Bracket</h1>
+  @if (LoserBracket.Count == 0)
+  {
+    <p>No one has lost yet.</p>
+  }
+  else
+  {
+    @foreach (Loser loser in LoserBracket)
+    {
+      <p>@loser.Team.Name</p>
+    }
+  }
 </div>
 <hr />
 <p>@Html.ActionLink("Back to Home", "Index", "Home")</p>

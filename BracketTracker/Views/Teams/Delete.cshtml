@@ -1,0 +1,17 @@
+@{
+    Layout = "_Layout";
+}
+
+@model BracketTracker.Models.Team
+
+<h2>Delete this Team?</h2>
+<hr />
+@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)
+@using (Html.BeginForm())
+{
+    <input type="submit" value="Delete" />
+}
+
+<hr />
+@Html.ActionLink("Back to Teams", "Index")
+@Html.ActionLink("Back to Home", "Index", "Home")

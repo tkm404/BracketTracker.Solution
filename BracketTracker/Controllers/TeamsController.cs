@@ -38,5 +38,19 @@ namespace BracketTracker.Controllers
 			return RedirectToAction("Index");
       }
     }
+    public ActionResult Delete(int teamId)
+    {
+      Team thisTeam = _db.Teams.FirstOrDefault(teams => teams.TeamId == teamId);
+      return View(thisTeam);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int teamId)
+    {
+      Team thisTeam = _db.Teams.FirstOrDefault(teams => teams.TeamId == teamId);
+      _db.Teams.Remove(thisTeam);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }

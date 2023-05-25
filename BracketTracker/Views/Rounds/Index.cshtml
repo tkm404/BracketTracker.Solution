@@ -1,5 +1,6 @@
 @{
   Layout = "_Layout";
+  List<TeamRound> teamRounds = ViewBag.allTeamRounds;
 }
 
 <h2>SHOW ME SOME ROUNDS, BOY</h2>
@@ -10,19 +11,26 @@
 {
   <p>No rounds yet</p>
 }
+
 <ol>
-  @foreach (TeamRound teamRound in Model)
+  @foreach (Round round in Model)
   {
-    <li>Round @teamRound.Round.RoundId
-    @if (teamRound.Outcome == true)
-    {
-      <p>Winner: @teamRound.Team.Name</p>
-    }
-    else
-    {
-      <p>Loser: @teamRound.Team.Name</p>
-    }
-    </li>
+    <li>Round @round.RoundId
+      @foreach (TeamRound teamRound in teamRounds)
+      {
+        @if (round.RoundId == teamRound.RoundId)
+        {
+          @if (teamRound.Outcome == true)
+          {
+            <p>Winner: @teamRound.Team.Name</p>
+          }
+          else
+          {
+            <p>Loser: @teamRound.Team.Name</p>
+          }
+        }
+      }
+      </li>
   }
 </ol>
 

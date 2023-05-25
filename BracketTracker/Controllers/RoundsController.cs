@@ -17,10 +17,11 @@ namespace BracketTracker.Controllers
 
     public ActionResult Index()
     {
-      List<TeamRound> teamRounds = _db.TeamRounds.Include(teamRound => teamRound.Team)
-                                                                  .Include(teamRounds => teamRounds.Round)
-                                                                  .ToList();
-      return View(teamRounds);
+      ViewBag.allTeamRounds = _db.TeamRounds.ToList();
+      List<Round> rounds = _db.Rounds.Include(round => round.JoinEntities)
+                                      .ThenInclude(join => join.Team)
+                                      .ToList();
+      return View(rounds);
     }
     public ActionResult Create()
     {

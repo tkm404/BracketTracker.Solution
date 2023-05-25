@@ -4,10 +4,11 @@
 
 @model BracketTracker.Models.Round
 
-<h2>DO SOMETHING</h2>
+<h2>Determine Players in Round- and Outcome!</h2>
 
 <h4>Add Teams to this Round: </h4>
-
+<h4>Toggle the Radio Button to enter the winner</h4>
+<br>
 @using (Html.BeginForm())
 {
     <label>Team One: </label>
@@ -20,3 +21,7 @@
     @Html.RadioButtonFor(model => model.Result, "false")
     <input type="submit" value="Add Round Result">
 }
+<hr />
+<p>@Html.ActionLink("Back to Home", "Index", "Home")</p>
+<p>@Html.ActionLink("See all Rounds completed this session", "Index")</p>
+<p>@Html.ActionLink("See all Teams", "Index", "Teams")</p>

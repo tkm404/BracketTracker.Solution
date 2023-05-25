@@ -29,6 +29,16 @@ namespace BracketTracker.Controllers
       return View();
     }
 
+        public ActionResult Details(int id)
+    {
+      Round thisRound = _db.Rounds
+
+            .Include(round => round.JoinEntities)
+            .ThenInclude(join => join.Team)
+            .FirstOrDefault(round => round.RoundId == id);
+            return View(thisRound);
+    }
+
     [HttpPost]
     public ActionResult Create(Round round, int[] TeamId)
     {
@@ -57,6 +67,21 @@ namespace BracketTracker.Controllers
         _db.SaveChanges();
       }
 
+      return RedirectToAction("Index");
+    }
+
+    public ActionResult Delete(int id)
+    {
+      Round thisRound = _db.Rounds.FirstOrDefault(rounds => rounds.RoundId == id);
+      return View(thisRound);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      Round thisRound = _db.Rounds.FirstOrDefault(rounds => rounds.RoundId == id);
+      _db.Rounds.Remove(thisRound);
+      _db.SaveChanges();
       return RedirectToAction("Index");
     }
   }

@@ -1,0 +1,48 @@
+@{
+	Layout = "_Layout";
+}
+
+@using BracketTracker.Models
+@model BracketTracker.Models.Round
+
+<h2>Round Record:</h2>
+<hr />
+
+<h3><label>Round</label>: @Html.DisplayFor(model =>model.RoundId)</h3>
+
+@if (@Model.JoinEntities.Count == 0)
+{
+	<p>No Rounds in this Session. Make some Teams!</p>
+	@Html.ActionLink("Teams some Make", "Create", "Teams")
+}
+else
+{
+	<p>Teams in this Round:</p>
+	<ul>
+	@if (@Model.JoinEntities.Count == 0)
+		{
+			<p>This Round had no teams...? Blasphemy!</p>
+		}
+		else
+		{
+			@foreach (TeamRound teamRound in Model.JoinEntities)
+			{
+				<li>Team: @teamRound.Team.Name | @if (teamRound.Outcome == false)
+					{
+						<span>Lost</span>;
+					}
+					else
+					{
+						<span>Won</span>
+					}
+				</li>
+			}
+		}
+	</ul>
+}
+
+<hr />
+<p>@Html.ActionLink("Back to Home", "Index", "Home")</p>
+<p>@Html.ActionLink("Back to Teams", "Index")</p>
+<p>@Html.ActionLink("See all completed Rounds this Session", "Index", "Rounds")</p>
+<p>@Html.ActionLink("Delete this Round?", "Delete", new { id = Model.RoundId})</p>

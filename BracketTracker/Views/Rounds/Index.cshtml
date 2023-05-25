@@ -17,7 +17,7 @@
 <ol>
   @foreach (Round round in Model)
   {
-    <li>Round @round.RoundId
+    <li>@Html.ActionLink($"Round {round.RoundId}", "Details", new { id = round.RoundId})
       @foreach (TeamRound teamRound in teamRounds)
       {
         @if (round.RoundId == teamRound.RoundId)

@@ -1,0 +1,20 @@
+@{
+    Layout = "_Layout";
+}
+
+
+@model BracketTracker.Models.Round
+
+<h2>Delete this Round?</h2>
+<hr />
+@Html.DisplayNameFor(model => model.RoundId): @Html.DisplayFor(model => model.RoundId)
+@using (Html.BeginForm())
+{
+    @Html.Hidden("RoundId", @Model.RoundId)
+    <input type="submit" value="Delete" />
+}
+
+<hr />
+<p>@Html.ActionLink("Back to Rounds", "Index")</p>
+<p>@Html.ActionLink("Back to Details", "Details", new { id = @Model.RoundId});</p>
+<p>@Html.ActionLink("Back to Home", "Index", "Home")</p>

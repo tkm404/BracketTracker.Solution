@@ -43,3 +43,9 @@ else
 
 <p>Team Wins: @Model.Wins</p>
 <p>Team Losses: @Model.Losses</p>
+
+<hr />
+<p>@Html.ActionLink("Back to Home", "Index", "Home")</p>
+<p>@Html.ActionLink("Back to Teams", "Index")</p>
+<p>@Html.ActionLink("See all completed Rounds this Session", "Index", "Rounds")</p>
+<p>@Html.ActionLink("Delete this Team?", "Delete", new { id = Model.TeamId})</p>

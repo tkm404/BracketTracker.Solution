@@ -4,6 +4,7 @@
 }
 
 <h2>SHOW ME SOME ROUNDS, BOY</h2>
+<hr />
 
 @using BracketTracker.Models
 
@@ -22,29 +23,20 @@
         {
           @if (teamRound.Outcome == true)
           {
-            <p>Winner: @teamRound.Team.Name</p>
+            @if (teamRound.Team.Name != "")
+            {
+              <p>Winner: @teamRound.Team.Name</p>
+            }
           }
           else
           {
-            <p>Loser: @teamRound.Team.Name</p>
+              <p>Loser: @teamRound.Team.Name</p>
           }
         }
       }
       </li>
   }
 </ol>
-
-@* <ol>
-  @foreach (TeamRound teamRound in Model)
-  {
-    @if (teamRound.Outcome == false)
-    {
-      <li>Round Lahoooo- zeh- herrrrrrrrr
-      <p>@teamRound.Team.Name</p>
-      </li>
-    }
-  }
-</ol> *@
 
 <hr />
 <p>@Html.ActionLink("Back to Home", "Index", "Home")</p>

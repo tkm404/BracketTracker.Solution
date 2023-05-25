@@ -14,7 +14,7 @@
 <ul>
 @foreach (Team team in Model)
 {
-  <li>@team.Name</li>
+  <li>@Html.ActionLink($"{team.Name}", "Details", new { id = team.TeamId })</li>
 }
 </ul>
 <hr />

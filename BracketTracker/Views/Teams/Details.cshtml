@@ -1,0 +1,45 @@
+@{
+	Layout = "_Layout";
+}
+
+@using BracketTracker.Models
+@model BracketTracker.Models.Team
+
+<h2>Team Record:</h2>
+<hr />
+
+<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model =>model.Name)</h3>
+
+@if (@Model.JoinEntities.Count == 0)
+{
+	<p>This team has no record. Put 'em in, coach!</p>
+	@Html.ActionLink("And by that, I mean put them in a round", "Create", "Rounds")
+}
+else
+{
+	<p>Involved in Rounds:</p>
+	<ul>
+	@if (@Model.JoinEntities.Count == 0)
+		{
+			<p>This team has no record!</p>
+		}
+		else
+		{
+			@foreach (TeamRound teamRound in Model.JoinEntities)
+			{
+				<li>Round @teamRound.RoundId | @if (teamRound.Outcome == false)
+					{
+						<span>Lost</span>;
+					}
+					else
+					{
+						<span>Won</span>
+					}
+				</li>
+			}
+		}
+	</ul>
+}
+
+<p>Team Wins: @Model.Wins</p>
+<p>Team Losses: @Model.Losses</p>

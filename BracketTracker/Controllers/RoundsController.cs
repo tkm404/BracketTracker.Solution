@@ -35,6 +35,17 @@ namespace BracketTracker.Controllers
       _db.SaveChanges();
       Team team1 = _db.Teams.FirstOrDefault(team => team.TeamId == TeamId[0]);
       Team team2 = _db.Teams.FirstOrDefault(team => team.TeamId == TeamId[1]);
+
+// Can we do anything with this?
+
+			SortedList<int, List<Team>> roundSnapshot = new SortedList<int, List<Team>>();
+			List<Team> thisRoundTeams = new List<Team>();
+			thisRoundTeams.Add(team1);
+			thisRoundTeams.Add(team2);
+			roundSnapshot.Add(round.RoundId, thisRoundTeams);
+
+// Resume main code
+
       if (round.Result == false)
       {
         team1.Losses++;

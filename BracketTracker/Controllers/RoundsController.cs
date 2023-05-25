@@ -123,6 +123,9 @@ namespace BracketTracker.Controllers
                 }
                 else
                 {
+// #nullable enable
+//                 Winner? bracketLwr = _db.Winners.FirstOrDefault(win => win.TeamId == team2.TeamId);
+// #nullable disable
                     _db.Winners.Remove(bracketLwr);
                     Loser loser = (new Loser() { TeamId = team2.TeamId });
                     _db.Losers.Add(loser);

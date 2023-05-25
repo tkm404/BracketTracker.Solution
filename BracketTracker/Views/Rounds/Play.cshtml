@@ -1,0 +1,26 @@
+@{
+	Layout = "_Layout";
+}
+
+@model BracketTracker.Models.Round
+
+<h2>Determine Players in Round- and Outcome!</h2>
+
+<h4>Add Teams to this Round: </h4>
+<h4>Press the Button to Play a Random Round</h4>
+<br>
+@using (Html.BeginForm())
+{
+	<label>Team One: </label>
+	@Html.DropDownList("TeamId") <span>   </span>
+	<label>Team Two: </label>
+	@Html.DropDownList("TeamId")
+
+	<br>
+	<br>
+	<input type="submit" value="Place Your Bets!">
+}
+<hr />
+<p>@Html.ActionLink("Back to Home", "Index", "Home")</p>
+<p>@Html.ActionLink("See all Rounds completed this session", "Index")</p>
+<p>@Html.ActionLink("See all Teams", "Index", "Teams")</p>

@@ -13,16 +13,19 @@
 <ol>
   @foreach (TeamRound teamRound in Model)
   {
+    <li>Round @teamRound.Round.RoundId
     @if (teamRound.Outcome == true)
     {
-      <li>Round Winner
-      <p>@teamRound.Team.Name</p>
-      </li>
+      <p>Winner: @teamRound.Team.Name</p>
     }
+    else
+    {
+      <p>Loser: @teamRound.Team.Name</p>
+    }
+    </li>
   }
+ 
 </ol>
-
-<hr />
 
 @* <ol>
   @foreach (TeamRound teamRound in Model)
@@ -35,6 +38,7 @@
     }
   }
 </ol> *@
+
 <hr />
 <p>@Html.ActionLink("Back to Home", "Index", "Home")</p>
 <p>@Html.ActionLink("See all Teams", "Index", "Teams")</p>

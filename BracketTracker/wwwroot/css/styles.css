@@ -1,0 +1,13 @@
+#logo {
+    max-width: 70%;
+    max-height: 70%;
+}
+
+.columns {
+    display: block;
+    column-count: auto;
+    border: 2px;
+    margin: auto;
+
+    
+}

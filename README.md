@@ -1,6 +1,3 @@
-# IMPORTANT TEMPLATE USAGE STUFF IN THE README
-Follow along below, replace with your own work as needed:
-
 # Bracket Tracker
 #### This is a self-directed Two-Day C# project that tracks wins and losses over multiple rounds.
 

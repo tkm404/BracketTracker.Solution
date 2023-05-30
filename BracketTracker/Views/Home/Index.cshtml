@@ -3,8 +3,19 @@
 }
 <hr />
 
-<p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>
+@if (User.Identity.IsAuthenticated)
+{
+  <p>Hello @User.Identity.Name!</p>
+  @using (Html.BeginForm("LogOff", "Account"))
+  {
+    <input type="submit" class="btn btn-primary" value="Log out" />
+  }
 
-<p>To begin, click "Add Teams"</p>
-<p>@Html.ActionLink("Add Teams", "Create", "Teams")</p>
-<p>@Html.ActionLink("See All Teams", "Index", "Teams")</p>
+  <p>To begin, click "Add Teams"</p>
+  <p>@Html.ActionLink("Add Teams", "Create", "Teams")</p>
+  <p>@Html.ActionLink("See All Teams", "Index", "Teams")</p>
+}
+else
+{
+  <p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>
+}

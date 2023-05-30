@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using BracketTracker.Models;
 using System.Threading.Tasks;
-// using BracketTracker.ViewModels;
+using BracketTracker.ViewModels;
 
 namespace BracketTracker.Controllers
 {
@@ -29,30 +29,30 @@ namespace BracketTracker.Controllers
       return View();
     }
 
-    // [HttpPost]
-    // public async Task<ActionResult> Register (RegisterViewModel model)
-    // {
-    //   if (!ModelState.IsValid)
-    //   {
-    //     return View(model);
-    //   }
-    //   else
-    //   {
-    //     ApplicationUser user = new ApplicationUser { UserName = model.Email };
-    //     IdentityResult result = await _userManager.CreateAsync(user, model.Password);
-    //     if (result.Succeeded)
-    //     {
-    //       return RedirectToAction("Index");
-    //     }
-    //     else
-    //     {
-    //       foreach (IdentityError error in result.Errors)
-    //       {
-    //         ModelState.AddModelError("", error.Description);
-    //       }
-    //       return View(model);
-    //     }
-    //   }
-    // }
+    [HttpPost]
+    public async Task<ActionResult> Register (RegisterViewModel model)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View(model);
+      }
+      else
+      {
+        ApplicationUser user = new ApplicationUser { UserName = model.Email };
+        IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+        if (result.Succeeded)
+        {
+          return RedirectToAction("Index");
+        }
+        else
+        {
+          foreach (IdentityError error in result.Errors)
+          {
+            ModelState.AddModelError("", error.Description);
+          }
+          return View(model);
+        }
+      }
+    }
   }
 }

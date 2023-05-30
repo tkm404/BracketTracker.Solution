@@ -11,5 +11,6 @@ namespace BracketTracker.Models
     public int Wins { get; set; }
     public int Losses { get; set; }
     public List<TeamRound> JoinEntities { get; set; }
+    public List<Player> Players { get; set; }
   }
 }

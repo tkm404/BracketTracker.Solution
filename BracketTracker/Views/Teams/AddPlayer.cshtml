@@ -1,0 +1,27 @@
+@{
+  Layout = "_Layout";
+}
+
+@model BracketTracker.Models.Team
+
+<h2>Add a Player</h2>
+
+<h4>Add a player to this team: @Html.DisplayFor(model => model.Name)</h4>
+
+@if (@ViewBag.Players.Count == 0)
+{
+  <p>You must create some players first!</p>
+  <p>@Html.ActionLink("Add a player", "Create", "Players")</p>
+}
+else
+{
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.TeamId)
+
+    @Html.Label("Select Player")
+    @Html.DropDownList("PlayerId")
+
+    <input type="submit" value="Save" class="btn btn-default"/>
+  }
+}

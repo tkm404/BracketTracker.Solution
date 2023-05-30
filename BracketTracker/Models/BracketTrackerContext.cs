@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BracketTracker.Models
 {
-  public class BracketTrackerContext : DbContext
+  public class BracketTrackerContext : IdentityDbContext<ApplicationUser>
   {
     public DbSet<Team> Teams { get; set; }
     public DbSet<Round> Rounds { get; set; }

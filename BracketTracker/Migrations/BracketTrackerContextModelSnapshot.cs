@@ -99,6 +99,28 @@ namespace BracketTracker.Migrations
                     b.ToTable("Losers");
                 });
 
+            modelBuilder.Entity("BracketTracker.Models.Player", b =>
+                {
+                    b.Property<int>("PlayerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Powerscore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PlayerId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("Players");
+                });
+
             modelBuilder.Entity("BracketTracker.Models.Round", b =>
                 {
                     b.Property<int>("RoundId")
@@ -313,6 +335,17 @@ namespace BracketTracker.Migrations
                     b.Navigation("Team");
                 });
 
+            modelBuilder.Entity("BracketTracker.Models.Player", b =>
+                {
+                    b.HasOne("BracketTracker.Models.Team", "Team")
+                        .WithMany("Players")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+                });
+
             modelBuilder.Entity("BracketTracker.Models.TeamRound", b =>
                 {
                     b.HasOne("BracketTracker.Models.Round", "Round")
@@ -402,6 +435,8 @@ namespace BracketTracker.Migrations
             modelBuilder.Entity("BracketTracker.Models.Team", b =>
                 {
                     b.Navigation("JoinEntities");
+
+                    b.Navigation("Players");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,18 @@
+@{
+  Layout = "_Layout";
+}
+
+@model BracketTracker.Models.Player
+
+<h2>Add a Player</h2>
+
+<p>@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name)
+  <input type="submit" value="Add Player">
+}
+<hr />
+<p>@Html.ActionLink("Back to Home", "Index", "Home")</p>
+<p>@Html.ActionLink("See all Players", "Index")</p>

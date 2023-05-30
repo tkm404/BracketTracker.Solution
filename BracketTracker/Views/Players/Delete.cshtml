@@ -1,0 +1,20 @@
+@{
+    Layout = "_Layout";
+}
+
+
+@model BracketTracker.Models.Player
+
+<h2>Delete this Player?</h2>
+<hr />
+@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)
+@using (Html.BeginForm())
+{
+    @Html.Hidden("playerId", @Model.PlayerId)
+    <input type="submit" value="Delete" />
+}
+
+<hr />
+<p>@Html.ActionLink("Back to Players", "Index")</p>
+<p>@Html.ActionLink("Back to Details", "Details", new { id = @Model.PlayerId});</p>
+<p>@Html.ActionLink("Back to Home", "Index", "Home")</p>

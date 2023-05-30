@@ -1,0 +1,67 @@
+@{
+	Layout = "_Layout";
+}
+
+@using BracketTracker.Models
+@model BracketTracker.Models.Player
+
+<h2>Player Record:</h2>
+<hr />
+
+<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model =>model.Name)</h3>
+<h3>@Html.DisplayNameFor(model => model.Powerscore): 	@Html.DisplayFor(model => model.Powerscore)</h3>
+
+@if (Model.Team == null)
+{
+	<p>This player has no Team on record</p>
+	@Html.ActionLink("Add this player to a team", "AddPlayer", "Teams")
+}
+else
+{
+	<label>Team: </label>
+	<h4>@Html.DisplayFor(model => model.Team)</h4>
+
+	<label>PowerScore: </label>
+
+}
+
+
+@* @if (@Model.JoinEntities.Count == 0)
+{
+	<p>This team has no record. Put 'em in, coach!</p>
+	@Html.ActionLink("And by that, I mean put them in a round", "Create", "Rounds")
+}
+else
+{
+	<p>Involved in Rounds:</p>
+	<ul>
+	@if (@Model.JoinEntities.Count == 0)
+		{
+			<p>This team has no record!</p>
+		}
+		else
+		{
+			@foreach (TeamRound teamRound in Model.JoinEntities)
+			{
+				<li>Round @teamRound.RoundId | @if (teamRound.Outcome == false)
+					{
+						<span>Lost</span>;
+					}
+					else
+					{
+						<span>Won</span>
+					}
+				</li>
+			}
+		}
+	</ul>
+}
+
+<p>Team Wins: @Model.Wins</p>
+<p>Team Losses: @Model.Losses</p> *@
+
+<hr />
+<p>@Html.ActionLink("Back to Home", "Index", "Home")</p>
+<p>@Html.ActionLink("Back to Teams", "Index")</p>
+<p>@Html.ActionLink("See all completed Rounds this Session", "Index", "Rounds")</p>
+<p>@Html.ActionLink("Delete this Team?", "Delete", new { id = Model.TeamId})</p>

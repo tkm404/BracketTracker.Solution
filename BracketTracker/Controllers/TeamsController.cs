@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using BracketTracker.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BracketTracker.Controllers
 {
@@ -44,6 +45,7 @@ namespace BracketTracker.Controllers
       Team thisTeam = _db.Teams
             .Include(team => team.JoinEntities)
             .ThenInclude(join => join.Round)
+            .Include(team => team.Players)
             .FirstOrDefault(team => team.TeamId == id);
             return View(thisTeam);
     }
@@ -60,6 +62,15 @@ namespace BracketTracker.Controllers
       _db.Teams.Remove(thisTeam);
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    public ActionResult AddPlayer(int id)
+    {
+      Team thisTeam = _db.Teams.FirstOrDefault(teams => teams.TeamId == id);
+      ViewBag.PlayerId = new SelectList(_db.Players, "PlayerId", "Name");
+      ViewBag.Players = _db.Players.ToList();
+
+      return View(thisTeam);
     }
   }
 }

@@ -1,5 +1,6 @@
 @{
 	Layout = "_Layout";
+	List<Player> playerList = ViewBag.PlayersList;
 }
 
 @using BracketTracker.Models
@@ -29,7 +30,8 @@ else
 			{
 				<li>Round @teamRound.RoundId | @if (teamRound.Outcome == false)
 					{
-						<span>Lost</span>;
+						<span>Lost</span>
+						;
 					}
 					else
 					{
@@ -43,6 +45,27 @@ else
 
 <p>Team Wins: @Model.Wins</p>
 <p>Team Losses: @Model.Losses</p>
+
+<hr />
+
+@if (Model.Players.Count == 0)
+{
+	<p>This team has no players on it yet!</p>
+}
+else
+{
+	<ul>
+	@foreach (Player player in playerList)
+		{
+			<li>@Html.DisplayNameFor(player => player.Name): @Html.DisplayFor(player => player.Name)</li>
+			<ul>
+				<li>@nameof(player.Powerscore): @player.Powerscore</li>
+			</ul>
+		}
+	</ul>
+}
+
+<p>@Html.ActionLink("Add player to mah team", "AssignPlayer", "Players", new { teamId = Model.TeamId })</p>
 
 <hr />
 <p>@Html.ActionLink("Back to Home", "Index", "Home")</p>

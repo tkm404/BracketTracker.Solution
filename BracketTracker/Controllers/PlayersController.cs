@@ -72,5 +72,20 @@ namespace BracketTracker.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult AssignPlayer(int teamId)
+    {
+      ViewBag.PlayersList = _db.Players.ToList();
+      ViewBag.TeamId = teamId;
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult AssignPlayer(Player player, int teamId)
+    {
+      _db.Players.Update(player);
+      _db.SaveChanges();
+      return RedirectToAction("Details", "Teams", new { id = teamId });
+    }
   }
 }

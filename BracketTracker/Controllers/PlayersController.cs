@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using BracketTracker.Models;
@@ -27,10 +28,13 @@ namespace BracketTracker.Controllers
     }
 
     // all below to be required by Admin Authorization
+    [Authorize]
     public ActionResult Create()
     {
       return View();
     }
+
+    [Authorize]
     [HttpPost]
     public ActionResult Create(Player player)
     {
@@ -46,12 +50,14 @@ namespace BracketTracker.Controllers
       }
     }
 
+    [Authorize]
     public ActionResult Delete(int id)
     {
       Player thisPlayer = _db.Players.FirstOrDefault(player => player.PlayerId == id);
       return View(thisPlayer);
     }
 
+    [Authorize]
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
@@ -61,12 +67,14 @@ namespace BracketTracker.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize]
     public ActionResult Edit(int id)
     {
       Player thisPlayer = _db.Players.FirstOrDefault(player => player.PlayerId == id);
       return View(thisPlayer);
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult Edit(Player player)
     {
@@ -75,6 +83,7 @@ namespace BracketTracker.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize]
     public ActionResult AssignPlayer(int teamId)
     {
       ViewBag.PlayersList = _db.Players.ToList();
@@ -83,6 +92,7 @@ namespace BracketTracker.Controllers
       return View();
     }
 
+    [Authorize]
     [HttpPost]
     public ActionResult AssignPlayer(Player player, int teamId)
     {

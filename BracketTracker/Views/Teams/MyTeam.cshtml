@@ -1,0 +1,23 @@
+@{
+  Layout = "_Layout";
+}
+
+@using BracketTracker.Models
+@model BracketTracker.Controllers.DatabaseInfo
+
+<h2>My Glorious Teams!</h2>
+
+@if (Model.MyTeams.Count() == 0)
+{
+  <p>I have no glorious teams!</p>
+}
+
+<ul>
+@foreach (var team in Model.MyTeams)
+{
+  <li>@Html.ActionLink($"{team.Name}", "Details", new { id = team.TeamId })</li>
+}
+</ul>
+
+<p>@Html.ActionLink("Back to All Teams", "Index")</p>
+<p>@Html.ActionLink("My Account", "Index", "Account")</p>

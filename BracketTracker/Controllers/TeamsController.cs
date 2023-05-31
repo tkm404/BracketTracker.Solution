@@ -40,6 +40,8 @@ namespace BracketTracker.Controllers
       }
     }
 
+    
+
     public ActionResult Details(int id)
     {
       Team thisTeam = _db.Teams

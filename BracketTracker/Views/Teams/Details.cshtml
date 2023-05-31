@@ -55,9 +55,9 @@ else
 else
 {
 	<ul>
-	@foreach (Player player in playerList)
+	@foreach (Player player in Model.Players)
 		{
-			<li>@Html.DisplayNameFor(player => player.Name): @Html.DisplayFor(player => player.Name)</li>
+			<li>@nameof(player.Name): @player.Name</li>
 			<ul>
 				<li>@nameof(player.Powerscore): @player.Powerscore</li>
 			</ul>

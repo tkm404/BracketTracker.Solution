@@ -111,7 +111,7 @@ namespace BracketTracker.Migrations
                     b.Property<int>("Powerscore")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeamId")
+                    b.Property<int?>("TeamId")
                         .HasColumnType("int");
 
                     b.HasKey("PlayerId");
@@ -339,9 +339,7 @@ namespace BracketTracker.Migrations
                 {
                     b.HasOne("BracketTracker.Models.Team", "Team")
                         .WithMany("Players")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeamId");
 
                     b.Navigation("Team");
                 });

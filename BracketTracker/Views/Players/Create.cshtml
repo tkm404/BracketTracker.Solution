@@ -9,8 +9,8 @@
 <p>@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
 @using (Html.BeginForm())
 {
-  @Html.LabelFor(model => model.Name)
-  @Html.TextBoxFor(model => model.Name)
+  <p>@Html.LabelFor(model => model.Name): @Html.TextBoxFor(model => model.Name)</p>
+  <p>@Html.LabelFor(model => model.Powerscore): @Html.TextBoxFor(model => model.Powerscore, new { type="number", min="1", max="10"})</p>
   <input type="submit" value="Add Player">
 }
 <hr />

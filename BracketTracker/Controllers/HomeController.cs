@@ -1,12 +1,27 @@
 using Microsoft.AspNetCore.Mvc;
+using BracketTracker.Models;
+using System.Linq;
+using System.Collections.Generic;
 
-namespace BracketTracker.Controllers
+namespace BracketTracker.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
-    {
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
+  private readonly BracketTrackerContext _db;
+
+  public HomeController(BracketTrackerContext db)
+  {
+    _db = db;
+  }
+
+  public ActionResult Index()
+  {
+    return View();
+  }
+}
+
+public class DatabaseInfo
+{
+  public IEnumerable<Team> Teams { get; set; }
+  public IEnumerable<Player> Players { get; set; }
 }

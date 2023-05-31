@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using BracketTracker.Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 
 namespace BracketTracker.Controllers
@@ -21,7 +22,8 @@ namespace BracketTracker.Controllers
 
     public ActionResult Details(int id)
     {
-      return View();
+      Player thisPlayer = _db.Players.FirstOrDefault(player => player.PlayerId == id);
+      return View(thisPlayer);
     }
 
     // all below to be required by Admin Authorization
@@ -77,13 +79,16 @@ namespace BracketTracker.Controllers
     {
       ViewBag.PlayersList = _db.Players.ToList();
       ViewBag.TeamId = teamId;
+      ViewBag.PlayerId = new SelectList(_db.Players, "PlayerId", "Name");
       return View();
     }
 
     [HttpPost]
     public ActionResult AssignPlayer(Player player, int teamId)
     {
-      _db.Players.Update(player);
+      var thisPlayer = _db.Players.FirstOrDefault(p => p.PlayerId == player.PlayerId);
+      thisPlayer.TeamId = teamId;
+      _db.Players.Update(thisPlayer);
       _db.SaveChanges();
       return RedirectToAction("Details", "Teams", new { id = teamId });
     }

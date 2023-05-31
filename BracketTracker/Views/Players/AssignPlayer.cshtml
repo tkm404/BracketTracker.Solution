@@ -9,7 +9,7 @@
 
 <h4>Assign a player to this team: @Html.DisplayFor(model => model.Name)</h4>
 
-@if (@ViewBag.Players.Count == 0)
+@if (@ViewBag.PlayersList.Count == 0)
 {
   <p>You must create some players first!</p>
   <p>@Html.ActionLink("Assign a player", "Create", "Players")</p>
@@ -17,9 +17,9 @@
 else
 {
   <ul>
-  @foreach (Player player in ViewBag.Players)
+  @foreach (Player player in ViewBag.PlayersList)
     {
-      <li>@nameof(player.Name): @player.Name</li> 
+      <li>@nameof(player.Name): @player.Name</li>
       <ul>
         <li>@nameof(player.Powerscore): @player.Powerscore</li>
       </ul>
@@ -27,9 +27,10 @@ else
   </ul>
   @using (Html.BeginForm())
   {
-    @Html.HiddenFor(model => model.TeamId)
-    @* @Html.HiddenFor(model => model.)
-@Html.HiddenFor(model => model.TeamId) *@
+    @* @Html.HiddenFor(model => model.TeamId)
+    @Html.HiddenFor(model => model.Name)
+    @Html.HiddenFor(model => model.Powerscore) *@
+    <input class="hidden" value=@ViewBag.TeamId name="teamId"/>
 
     @Html.Label("Select Player")
     @Html.DropDownList("PlayerId")
@@ -37,3 +38,5 @@ else
     <input type="submit" value="Assign player to my team" class="btn btn-default" />
   }
 }
+<p>@Html.ActionLink("return home", "Index", "Home")</p>
+<P>@Html.ActionLink("Create Players", "Create")</P>

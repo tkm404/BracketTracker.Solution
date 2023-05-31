@@ -3,20 +3,27 @@
 }
 
 @using BracketTracker.Models
+@model BracketTracker.Controllers.DatabaseInfo
 
 <h2>Ermagerd, Terms!</h2>
 
-@if (Model.Count == 0)
+@if (Model.AllTeams.Count() == 0)
 {
   <p>No teams yet</p>
 }
 
 <ul>
-@foreach (Team team in Model)
+@foreach (var team in Model.AllTeams)
 {
   <li>@Html.ActionLink($"{team.Name}", "Details", new { id = team.TeamId })</li>
 }
 </ul>
+
+@if (Model.MyTeams.Count() != 0)
+{
+  <p>@Html.ActionLink("See my teams", "MyTeam")</p> 
+}
+
 <hr />
 <h3>@Html.ActionLink("Play Random Mode!", "Play", "Rounds")</h3>
 <p>@Html.ActionLink("Back to Home", "Index", "Home")</p>

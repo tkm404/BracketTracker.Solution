@@ -1,13 +1,21 @@
 #logo {
-    max-width: 70%;
-    max-height: 70%;
+  max-width: 70%;
+  max-height: 70%;
 }
 
 .columns {
-    display: block;
-    column-count: auto;
-    border: 2px;
-    margin: auto;
+  display: block;
+  column-count: auto;
+  border: 2px;
+  margin: auto;
 
-    
+
+}
+
+.hidden {
+  display: none;
+}
+
+body {
+  background-color: rgb(139, 201, 255);
 }

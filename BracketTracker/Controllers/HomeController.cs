@@ -22,6 +22,7 @@ public class HomeController : Controller
 
 public class DatabaseInfo
 {
-  public IEnumerable<Team> Teams { get; set; }
+  public IEnumerable<Team> AllTeams { get; set; }
   public IEnumerable<Player> Players { get; set; }
+  public IEnumerable<Team> MyTeams { get; set; }
 }

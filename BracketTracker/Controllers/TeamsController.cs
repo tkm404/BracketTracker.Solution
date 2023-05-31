@@ -5,20 +5,40 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace BracketTracker.Controllers;
 
 public class TeamsController : Controller
 {
   private readonly BracketTrackerContext _db;
-  public TeamsController(BracketTrackerContext db)
+  private readonly UserManager<ApplicationUser> _userManager;
+
+  public TeamsController(UserManager<ApplicationUser> userManager, BracketTrackerContext db)
   {
+    _userManager = userManager;
     _db = db;
   }
 
-  public ActionResult Index()
+
+  public async Task<ActionResult> Index()
   {
-    return View(_db.Teams.ToList());
+    var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+    var teams = new DatabaseInfo {
+      AllTeams = _db.Teams
+                  .Include(player => player.Players)
+                  .Include(teamround => teamround.JoinEntities)
+                  .ThenInclude(round => round.Round),
+      MyTeams = _db.Teams
+                  .Where(entry => entry.User.Id == currentUser.Id)
+                  .Include(player => player.Players)
+                  .Include(teamround => teamround.JoinEntities)
+                  .ThenInclude(round => round.Round)
+    };
+    return View(teams);
   }
 
   [Authorize]
@@ -29,14 +49,17 @@ public class TeamsController : Controller
 
   [Authorize]
   [HttpPost]
-  public ActionResult Create(Team team)
+  public async Task<ActionResult> Create(Team team)
   {
     if (!ModelState.IsValid)
     {
-      return View();
+      return View(team);
     }
     else
     {
+      var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      team.User = currentUser;
       _db.Teams.Add(team);
       _db.SaveChanges();
       return RedirectToAction("Index");

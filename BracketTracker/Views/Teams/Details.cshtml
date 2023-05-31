@@ -55,11 +55,11 @@ else
 else
 {
 	<ul>
-	@foreach (Player player in Model.Players)
+	@foreach (PlayerTeam playerTeam in Model.PlayerTeams)
 		{
-			<li>@nameof(player.Name): @player.Name</li>
+			<li>@nameof(playerTeam.Player.Name): @playerTeam.Player.Name</li>
 			<ul>
-				<li>@nameof(player.Powerscore): @player.Powerscore</li>
+				<li>@nameof(playerTeam.Player.Powerscore): @playerTeam.Player.Powerscore</li>
 			</ul>
 		}
 	</ul>

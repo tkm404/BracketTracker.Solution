@@ -11,6 +11,7 @@ namespace BracketTracker.Models
     public DbSet<Winner> Winners { get; set; }
     public DbSet<Loser> Losers { get; set; }
     public DbSet<Player> Players { get; set; }
+    public DbSet<PlayerTeam> PlayerTeams { get; set; }
     public BracketTrackerContext(DbContextOptions options) : base(options) { }
   }
 }

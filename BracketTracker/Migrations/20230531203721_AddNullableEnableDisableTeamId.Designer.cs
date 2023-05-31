@@ -3,6 +3,7 @@ using System;
 using BracketTracker.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BracketTracker.Migrations
 {
     [DbContext(typeof(BracketTrackerContext))]
-    partial class BracketTrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20230531203721_AddNullableEnableDisableTeamId")]
+    partial class AddNullableEnableDisableTeamId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,27 +121,6 @@ namespace BracketTracker.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Players");
-                });
-
-            modelBuilder.Entity("BracketTracker.Models.PlayerTeam", b =>
-                {
-                    b.Property<int>("PlayerTeamId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlayerTeamId");
-
-                    b.HasIndex("PlayerId");
-
-                    b.HasIndex("TeamId");
-
-                    b.ToTable("PlayerTeams");
                 });
 
             modelBuilder.Entity("BracketTracker.Models.Round", b =>
@@ -370,25 +351,6 @@ namespace BracketTracker.Migrations
                     b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("BracketTracker.Models.PlayerTeam", b =>
-                {
-                    b.HasOne("BracketTracker.Models.Player", "Player")
-                        .WithMany("PlayerTeams")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BracketTracker.Models.Team", "Team")
-                        .WithMany("PlayerTeams")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Player");
-
-                    b.Navigation("Team");
-                });
-
             modelBuilder.Entity("BracketTracker.Models.Team", b =>
                 {
                     b.HasOne("BracketTracker.Models.ApplicationUser", "User")
@@ -479,11 +441,6 @@ namespace BracketTracker.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BracketTracker.Models.Player", b =>
-                {
-                    b.Navigation("PlayerTeams");
-                });
-
             modelBuilder.Entity("BracketTracker.Models.Round", b =>
                 {
                     b.Navigation("JoinEntities");
@@ -492,8 +449,6 @@ namespace BracketTracker.Migrations
             modelBuilder.Entity("BracketTracker.Models.Team", b =>
                 {
                     b.Navigation("JoinEntities");
-
-                    b.Navigation("PlayerTeams");
 
                     b.Navigation("Players");
                 });

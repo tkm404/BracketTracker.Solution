@@ -70,12 +70,27 @@ public class TeamsController : Controller
 
   public ActionResult Details(int id)
   {
-    Team thisTeam = _db.Teams
+    var thisTeam = _db.Teams
           .Include(team => team.JoinEntities)
           .ThenInclude(join => join.Round)
-          .Include(team => team.Players)
+          .Include(playerTeam => playerTeam.PlayerTeams)
+          .ThenInclude(player => player.Player)
           .FirstOrDefault(team => team.TeamId == id);
     return View(thisTeam);
+  }
+
+  public async Task<ActionResult> MyTeam()
+  {
+    var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+    var userTeams = new DatabaseInfo {
+      MyTeams = _db.Teams
+                    .Where(e =>e.User.Id == currentUser.Id)
+                    .Include(player => player.Players)
+                    .Include(teamround => teamround.JoinEntities)
+                    .ThenInclude(round => round.Round)
+    };
+    return View(userTeams);
   }
 
   [Authorize]

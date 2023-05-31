@@ -12,5 +12,6 @@ public class Team
   public int Losses { get; set; }
   public List<TeamRound> JoinEntities { get; set; }
   public List<Player> Players { get; set; }
+  public List<PlayerTeam> PlayerTeams { get; set; }
   public ApplicationUser User { get; set; }
 }

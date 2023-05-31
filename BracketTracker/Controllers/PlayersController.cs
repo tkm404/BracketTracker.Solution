@@ -23,7 +23,10 @@ namespace BracketTracker.Controllers
 
     public ActionResult Details(int id)
     {
-      Player thisPlayer = _db.Players.FirstOrDefault(player => player.PlayerId == id);
+      Player thisPlayer = _db.Players
+                              .Include(pt => pt.PlayerTeams)
+                              .ThenInclude(team => team.Team)
+                              .FirstOrDefault(player => player.PlayerId == id);
       return View(thisPlayer);
     }
 
@@ -96,10 +99,14 @@ namespace BracketTracker.Controllers
     [HttpPost]
     public ActionResult AssignPlayer(Player player, int teamId)
     {
-      var thisPlayer = _db.Players.FirstOrDefault(p => p.PlayerId == player.PlayerId);
-      thisPlayer.TeamId = teamId;
-      _db.Players.Update(thisPlayer);
-      _db.SaveChanges();
+      #nullable enable
+      PlayerTeam? joinEntity = _db.PlayerTeams.FirstOrDefault(join => (join.TeamId == teamId && join.PlayerId == player.PlayerId));
+      #nullable disable
+      if (joinEntity == null && teamId !=0)
+      {
+        _db.PlayerTeams.Add(new PlayerTeam() { TeamId = teamId, PlayerId = player.PlayerId});
+        _db.SaveChanges();
+      }
       return RedirectToAction("Details", "Teams", new { id = teamId });
     }
   }

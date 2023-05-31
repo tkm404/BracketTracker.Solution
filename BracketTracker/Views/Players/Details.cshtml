@@ -9,52 +9,51 @@
 <hr />
 
 <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model =>model.Name)</h3>
-<h3>@Html.DisplayNameFor(model => model.Powerscore): 	@Html.DisplayFor(model => model.Powerscore)</h3>
+<h3>@Html.DisplayNameFor(model => model.Powerscore): @Html.DisplayFor(model => model.Powerscore)</h3>
 
-@if (Model.Team == null)
+@if (Model.PlayerTeams.Count == 0)
 {
 	<p>This player has no Team on record</p>
 	@Html.ActionLink("Add this player to a team", "AssignPlayer")
 }
 else
 {
-	<label>Team: </label>
-	<h4>@Html.DisplayFor(model => model.Team)</h4>
-
-	<label>PowerScore: </label>
-
+	@foreach (var pt in Model.PlayerTeams)
+	{
+		<h5>Team Assignment: @pt.Team.Name </h5>
+	}
 }
 
 
 @* @if (@Model.JoinEntities.Count == 0)
 {
-	<p>This team has no record. Put 'em in, coach!</p>
-	@Html.ActionLink("And by that, I mean put them in a round", "Create", "Rounds")
+<p>This team has no record. Put 'em in, coach!</p>
+@Html.ActionLink("And by that, I mean put them in a round", "Create", "Rounds")
 }
 else
 {
-	<p>Involved in Rounds:</p>
-	<ul>
-	@if (@Model.JoinEntities.Count == 0)
-		{
-			<p>This team has no record!</p>
-		}
-		else
-		{
-			@foreach (TeamRound teamRound in Model.JoinEntities)
-			{
-				<li>Round @teamRound.RoundId | @if (teamRound.Outcome == false)
-					{
-						<span>Lost</span>;
-					}
-					else
-					{
-						<span>Won</span>
-					}
-				</li>
-			}
-		}
-	</ul>
+<p>Involved in Rounds:</p>
+<ul>
+@if (@Model.JoinEntities.Count == 0)
+{
+<p>This team has no record!</p>
+}
+else
+{
+@foreach (TeamRound teamRound in Model.JoinEntities)
+{
+<li>Round @teamRound.RoundId | @if (teamRound.Outcome == false)
+{
+<span>Lost</span>;
+}
+else
+{
+<span>Won</span>
+}
+</li>
+}
+}
+</ul>
 }
 
 <p>Team Wins: @Model.Wins</p>
@@ -64,4 +63,4 @@ else
 <p>@Html.ActionLink("Back to Home", "Index", "Home")</p>
 <p>@Html.ActionLink("Back to Teams", "Index")</p>
 <p>@Html.ActionLink("See all completed Rounds this Session", "Index", "Rounds")</p>
-<p>@Html.ActionLink("Delete this Team?", "Delete", new { id = Model.TeamId})</p>
+<p>@Html.ActionLink("Delete this Player?", "Delete", new { id = Model.PlayerId})</p>

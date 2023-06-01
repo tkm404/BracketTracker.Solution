@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace BracketTracker.Models;
+
+[Keyless]
 public class RoleEdit
 {
   public IdentityRole Role { get; set; }

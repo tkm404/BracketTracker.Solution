@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using BracketTracker.Models;
+using Microsoft.EntityFrameworkCore;
+using BracketTracker.CustomTagHelpers;
+
 
 namespace BracketTracker.Controllers;
 
@@ -11,7 +14,7 @@ public class RolesController : Controller
 {
   private RoleManager<IdentityRole> roleManager;
   private UserManager<ApplicationUser> userManager;
-  public RolesController(UserManager<ApplicationUser> userMrg, RoleManager<IdentityRole> roleMgr)
+  public RolesController(RoleManager<IdentityRole> roleMgr, UserManager<ApplicationUser> userMrg)
   {
     roleManager = roleMgr;
     userManager = userMrg;
@@ -40,16 +43,31 @@ public class RolesController : Controller
     return View(name);
   }
 
-  public async Task<IActionResult> Update(string id)
+  // public async Task<List<ApplicationUser>> FindUsers(ApplicationUser user, IdentityRole role, List<ApplicationUser> members, List<ApplicationUser> nonMembers)
+  // {
+  //   var list = await _userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
+  //   list.Add(user);
+  //   return list;
+  // }
+
+  public async Task<RedirectToActionResult> FindRole(string id)
   {
     IdentityRole role = await roleManager.FindByIdAsync(id);
+    return RedirectToAction("Update", role);
+  }
+
+  public async Task<IActionResult> Update(IdentityRole role)
+  {
     List<ApplicationUser> members = new List<ApplicationUser>();
     List<ApplicationUser> nonMembers = new List<ApplicationUser>();
+
     foreach (ApplicationUser user in userManager.Users)
     {
+      // await FindUsers(user, role, members, nonMembers);
       var list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
       list.Add(user);
     }
+
     return View(new RoleEdit
     {
       Role = role,
@@ -89,7 +107,7 @@ public class RolesController : Controller
     if (ModelState.IsValid)
       return RedirectToAction(nameof(Index));
     else
-      return await Update(model.RoleId);
+      return await FindRole(model.RoleId);
   }
 
   [HttpPost]

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Identity.CustomTagHelpers;
+namespace BracketTracker.CustomTagHelpers;
 
 [HtmlTargetElement("td", Attributes = "i-role")]
 public class RoleUsersTH : TagHelper

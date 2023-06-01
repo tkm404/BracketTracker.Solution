@@ -24,7 +24,7 @@ namespace BracketTracker
                       );
 
       builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-              // .AddRoles<IdentityRole>()
+              .AddRoles<IdentityRole>()
               .AddEntityFrameworkStores<BracketTrackerContext>()
               .AddDefaultTokenProviders();
 

@@ -32,12 +32,15 @@ public class TeamsController : Controller
                   .Include(player => player.Players)
                   .Include(teamround => teamround.JoinEntities)
                   .ThenInclude(round => round.Round),
-      MyTeams = _db.Teams
-                  .Where(entry => entry.User.Id == currentUser.Id)
-                  .Include(player => player.Players)
-                  .Include(teamround => teamround.JoinEntities)
-                  .ThenInclude(round => round.Round)
     };
+    if (currentUser != null)
+    {
+      teams.MyTeams = _db.Teams
+                            .Where(entry => entry.User.Id == currentUser.Id)
+                            .Include(player => player.Players)
+                            .Include(teamround => teamround.JoinEntities)
+                            .ThenInclude(round => round.Round);
+    }
     return View(teams);
   }
 

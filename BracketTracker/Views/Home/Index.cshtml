@@ -3,6 +3,8 @@
 }
 <hr />
 
+@model BracketTracker.Controllers.DatabaseInfo
+
 @if (User.Identity.IsAuthenticated)
 {
   <p>Hello @User.Identity.Name!</p>
@@ -19,3 +21,19 @@ else
 {
   <p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>
 }
+
+
+<h4>Teams</h4>
+@if (Model.AllTeams.Count() == 0)
+{
+  <p>No teams yet</p>
+}
+
+<ul>
+@foreach (var team in Model.AllTeams)
+{
+  <li>@Html.ActionLink($"{team.Name}", "Details", new { id = team.TeamId })</li>
+}
+</ul>
+
+<p>@Html.ActionLink("See all teams", "Index", "Teams")</p>

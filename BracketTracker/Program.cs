@@ -24,8 +24,11 @@ namespace BracketTracker
                       );
 
       builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+              // .AddRoles<IdentityRole>()
               .AddEntityFrameworkStores<BracketTrackerContext>()
               .AddDefaultTokenProviders();
+
+      // builder.Services.AddRazorPages();
 
       WebApplication app = builder.Build();
 

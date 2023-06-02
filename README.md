@@ -1,7 +1,7 @@
 # Bracket Tracker
-#### This is a self-directed Two-Day C# project that tracks wins and losses over multiple rounds.
+#### This is a self-directed multi-day C# project that tracks wins and losses over multiple rounds.
 
-#### By Thomas McDowell and Emma Gerigscott 
+#### By Thomas McDowell, Emma Gerigscott and Kyle Crawford
 
 ## Technologies Used:
 * C#
